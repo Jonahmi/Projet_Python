@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='animation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modal_scan.css') }}">
+    <script src=https://unpkg.com/browse/html5-qrcode@2.0.9/dist/html5-qrcode.min.js></script>
+    <title>Dashboard</title>
+    
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-code-alt'></i>
+            <div class="logo-name"><span>Asmr</span>Prog</div>
+        </a>
+        <ul class="side-menu">
+            <li ><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="./conge"><i class='bx bx-store-alt'></i>demande congé</a></li>
+            <li class="active"><a href="./scan"><i class='bx bx-message-square-dots'></i>presences</a></li>
+            <li ><a href="./absence"><i class='bx bx-analyse'></i>Absences</a></li>
+            
+           
+        </ul>
+        <ul class="side-menu">
+            
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <!-- <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div> -->
+                
+            </form>
+            
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="/login" class="profile">
+                <img src="images/logo.png">
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+
+        <main>
+            <div id="my-qr-reader" style="width: 500px; position: relative; margin: 4cm auto 0;"></div>
+            <div id="qr-result"></div>
+        
+            <!-- Modal -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Merci pour votre scan!</p>
+                </div>
+            </div>
+        
+            <script src="https://unpkg.com/html5-qrcode"></script>
+            <script>
+                function domReady(fn) {
+                    if (document.readyState === "complete" || document.readyState === "interactive") {
+                        setTimeout(fn, 1);
+                    } else {
+                        document.addEventListener("DOMContentLoaded", fn);
+                    }
+                }
+        
+                domReady(function () {
+                    var qrResult = document.getElementById('qr-result');
+        
+                    function onScanSuccess(decodeText, decodeResult) {
+                        // Afficher le résultat du scan dans l'élément avec l'ID "qr-result"
+                        qrResult.innerText = decodeText;
+        
+                        // Afficher le modal après le scan
+                        showModal();
+        
+                        // Envoyer les données du scan à Flask
+                        fetch('/scan_qr', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ employee_id: decodeText }),
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    console.log('Scan enregistré avec succès.');
+                                } else {
+                                    console.error('Erreur lors de l\'enregistrement du scan.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Erreur lors de la requête:', error);
+                            });
+                    }
+        
+                    var htmlScanner = new Html5QrcodeScanner("my-qr-reader", { fps: 10, qrbox: 250 });
+                    htmlScanner.render(onScanSuccess);
+        
+                    // Fonction pour afficher le modal
+                    function showModal() {
+                        var modal = document.getElementById("myModal");
+                        var span = document.getElementsByClassName("close")[0];
+        
+                        // Afficher le modal
+                        modal.style.display = "block";
+        
+                        // Fermer le modal lorsqu'on clique sur la croix
+                        span.onclick = function () {
+                            modal.style.display = "none";
+                        }
+        
+                        // Fermer le modal lorsqu'on clique en dehors de celui-ci
+                        window.onclick = function (event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                });
+            </script>
+        </main>
+        
+        
+        
+        
+
+    </div>
+    
+
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+   
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='boostrap.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>gestion</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-code-alt'></i>
+            <div class="logo-name"><span>Asmr</span>Prog</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-calendar'></i>Dashboard</a></li>
+            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
+            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
+            <li><a href="#"><i class='bx bx-group'></i>Users</a></li>
+            <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    
+                </div>
+            </form>
+            
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="images/logo.png">
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+
+        <main>
+            <div class="container-xl">
+                <div class="table-responsive">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h2><b>Employer</b></h2>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="ajout"><a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class=' bx bx-user-plus 'title="Ajout"></i> <span></span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>email</th>
+                                    <th>Poste</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    {% for employees in employees.items %}
+                                    <tr>
+                                        <td>{{ employees.employee_id }}</td>
+                                        <td>{{ employees.nom }}</td>
+                                        <td>{{ employees.prenom }}</td>
+                                        <td>{{ employees.adresse }}</td>
+                                        <td>{{ employees.poste }}</td>
+                                        <td>
+                                            <a href="#" class="edit" data-toggle="modal" data-target="#editEmployeeModal"
+                                            data-employee-id="{{ employees.employee_id }}" data-nom="{{ employees.nom }}"
+                                            data-prenom="{{ employees.prenom }}" data-adresse="{{ employees.adresse }}"
+                                            data-poste="{{ employees.poste }}">
+                                            <i class="material-icons" data-toggle="tooltip" title="Modifier">&#xE254;</i>
+                                         </a>
+
+                                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-employee-id="{{ employees.employee_id }}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                         
+                                         <button onclick="generateQR('{{ employees.employee_id }}')" class="edit" data-toggle="tooltip" title="QR Code">
+                                            <i class="bx bx-qr"></i>
+                                        </button>
+                                        </td>
+                                        
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tr>
+		
+                                
+                            </tbody>
+                        </table>
+                        <div class="clearfix">
+                            
+                            <ul class="pagination">
+                                {% if employees.has_prev %}
+                                <li class="page-item"><a href="{{ url_for('index', page=employees.prev_num) }}" class="page-link">Previous</a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                                {% endif %}
+
+                                {% for page_num in employees.iter_pages() %}
+                                {% if page_num %}
+                                {% if page_num == employees.page %}
+                                <li class="page-item active"><a href="#" class="page-link">{{ page_num }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a href="{{ url_for('index', page=page_num) }}" class="page-link">{{ page_num }}</a></li>
+                                {% endif %}
+                                {% else %}
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if employees.has_next %}
+                                <li class="page-item"><a href="{{ url_for('index', page=employees.next_num) }}" class="page-link">Next</a></li>
+                                {% else %}
+                                <li class="page-item disabled"><a href="#" class="page-link">Next</a></li>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>        
+            </div>
+            <!-- Add Modal HTML -->
+            <div id="addEmployeeModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="addEmployeeForm" action="/add_employee" method="POST">
+                            <div class="modal-header">						
+                                <h4 class="modal-title">ajout d'un Employee</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">					
+                                <div class="form-group">
+                                    <label>Id</label>
+                                    <input type="text" name="employee_id" id="employee_id" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom</label>
+                                    <input type="text" name="nom" id="nom"  class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prenom</label>
+                                    <input type="text" name="prenom" id="prenom" value="" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>email</label>
+                                    <input type="email" name="adresse" id="adresse" value="" class="form-control" required>
+                                </div>		
+                                <div class="form-group">
+                                    <label>Poste</label>
+                                    <input type="text"  name="poste" id="poste" value="" class="form-control" required>
+                                </div>				
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-success" value="Ajouter">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit Modal HTML -->
+            <div id="editEmployeeModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="editEmployeeForm" action="{{ url_for('update_employee') }}" method="POST">
+                            <div class="modal-header">						
+                                <h4 class="modal-title">Modification d'un employé</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">					
+                                <div class="form-group">
+                                    
+                                    <input type="hidden" id="employee_id" name="employee_id" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nom</label>
+                                    <input type="text" id="nom" name="nom" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prénom</label>
+                                    <input type="text" id="prenom" name="prenom" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>email</label>
+                                    <input type="email" id="adresse" name="adresse" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Poste</label>
+                                    <input type="text" id="poste" name="poste" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info">Sauvegarder</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete Modal HTML -->
+            <div id="deleteEmployeeModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="deleteForm" method="POST" action="">
+                            <div class="modal-header">						
+                                <h4 class="modal-title">Suppression d'un employé</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">					
+                                <p>Voulez-vous vraiment supprimer cet employé ?</p>
+                                <p class="text-warning"><small>Cette action est irréversible.</small></p>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-danger" value="Effacer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Annuler">
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script src="{{ url_for('static', filename='employeeMD.js') }}"></script>
+    <script>
+        function generateQR(employee_id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/generate_qr/' + employee_id, true);
+            xhr.responseType = 'blob';
+    
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    var blob = this.response;
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var imgData = e.target.result;
+                        var modal = document.createElement('div');
+                        modal.innerHTML = '<img src="' + imgData + '" alt="QR Code">';
+                        modal.style.display = 'block';
+                        modal.style.position = 'fixed';
+                        modal.style.zIndex = '9999';
+                        modal.style.width = 'auto';
+                        modal.style.height = 'auto';
+                        modal.style.top = '50%';
+                        modal.style.left = '50%';
+                        modal.style.transform = 'translate(-50%, -50%)';
+                        modal.style.backgroundColor = 'white';
+                        modal.style.padding = '20px';
+                        modal.style.boxShadow = '0px 0px 15px rgba(0, 0, 0, 0.5)';
+                        modal.onclick = function () {
+                            modal.remove();
+                        };
+                        document.body.appendChild(modal);
+                    };
+                    reader.readAsDataURL(blob);
+                }
+            };
+    
+            xhr.send();
+        }
+    </script>
+    
+    
+    
+    
+
+</body>
+
+</html>

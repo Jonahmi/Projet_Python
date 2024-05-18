@@ -1,0 +1,186 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.table-wrapper {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.table {
+    margin-bottom: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fafafa;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.btn-group {
+    display: flex;
+}
+
+.btn {
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #3f729b;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #355f83;
+}
+
+table.table td a.delete {
+    color: #F44336;
+}
+
+table.table td a.edit {
+    color: #388E3C;
+}
+
+.ajout {
+    display: flex;
+    justify-content:space-evenly ;
+    padding-left: 17rem;
+    margin-right: 50px;
+    justify-content: space-between; /* Pour créer de l'espace entre les éléments flexibles */
+    align-items: center; /* Pour aligner verticalement les éléments sur la même ligne */
+    margin-bottom: 10px;
+ }
+ .ajout a.btn {
+    width: 70px; /* Réduire la largeur du bouton */
+    height: 45px;
+}
+ 
+select {
+    width: 400px; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    appearance: none; 
+    background-color: #f9f9f9; 
+  }
+  
+ 
+  
+  
+  select::-webkit-scrollbar {
+    width: 10px; 
+  }
+  
+  select::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 5px; 
+  }
+  
+  
+  select {
+    scrollbar-width: thin; 
+  }
+  
+  select::-moz-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 5px; 
+  }
+
+  /* CSS pour styliser le bouton */
+.edit {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.edit i {
+    font-size: 20px; /* Taille de l'icône */
+    color: #000; /* Couleur de l'icône */
+}
+
+.edit:hover i {
+    color: #007bff; /* Couleur de l'icône au survol */
+}
+
+/* Style supplémentaire pour le bouton */
+/* CSS pour styliser le bouton */
+.edit {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.edit i {
+    font-size: 20px; /* Taille de l'icône */
+    color: #000; /* Couleur de l'icône */
+}
+
+.edit:hover i {
+    color: #007bff; /* Couleur de l'icône au survol */
+}
+
+/* Style supplémentaire pour le bouton */
+.edit {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+}
+
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+/* Couleurs pour les différents types d'alerte */
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}

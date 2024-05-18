@@ -1,0 +1,44 @@
+
+.modal {
+    display: none; /* Par défaut, le modal est caché */
+    position: fixed; /* Position fixe pour rester au-dessus du contenu */
+    z-index: 1; /* Place le modal au-dessus de tout le contenu */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largeur pleine */
+    height: 100%; /* Hauteur pleine */
+    overflow: auto; /* Activer le défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.4); /* Fond semi-transparent */
+}
+
+
+
+
+/* Fermer le bouton */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+} 
+
+.modal-content {
+    background-color: #fefefe;
+    position: absolute; /* Utiliser une position absolue pour le centrage */
+    top: 50%; /* Centrer verticalement */
+    left: 50%; /* Centrer horizontalement */
+    transform: translate(-50%, -50%); /* Centrer précisément */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px; /* Largeur fixe pour un modal carré */
+    height: 400px; /* Hauteur fixe pour un modal carré */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 0; /* Retirer la bordure arrondie */
+}

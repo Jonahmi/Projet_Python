@@ -1,0 +1,17 @@
+#icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    margin-left: 10px;
+}
+
+@keyframes headBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}

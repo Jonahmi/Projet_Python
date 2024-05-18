@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+#calendar {
+    cursor: pointer; 
+    background-color: #fff;
+}
+
+.fc-header-center {
+    font-size: 24px;
+}
+.fc-button {
+    background-color: #007bff;
+    color: #007bff;
+    border-color: #007bff;
+}
+.fc-button:hover {
+    background-color: #0056b3;
+    color: 007bff;
+    border-color: #0056b3;
+}
+
+main{
+    background-color: #fff;
+}
+
+.event-title {
+    font-family: Arial, sans-serif; 
+    font-weight: bold; 
+    color: #333; 
+}
+.tooltiptext {
+    font-family: Arial, sans-serif; 
+    font-size: 14px; 
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: #fff;
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    position: absolute; 
+    z-index: 1000; 
+    pointer-events: none; 
+}
+
